@@ -1,0 +1,117 @@
+/* Reference Chinese Han Dynasty ancient poetry scroll/painting scroll */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/:root */
+:root{
+  --paper:#f8f3e7;
+  --ink:#111;
+  --edge:#d9cdb5;
+  --shadow:rgba(0,0,0,.18);
+  --card-lift:12vh;        /* Pop-up window upward height (bottom distance) */
+
+  /* Font: Brush font is used only for titles/barrages/entry names */
+  /* If Ma Shan Zheng fails to load, use STKaiti / KaiTi / Songti SC in that order (if that doesn't work, use the serif) */
+  --brush-font:"Ma Shan Zheng","STKaiti","KaiTi","Songti SC",serif;
+  --latin-font:"Source Serif 4","Noto Serif","Georgia",serif; /* This font is easier to read */
+  --mix-font:var(--latin-font),var(--brush-font);
+}
+
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing */
+/*This CSS makes all boxes easier to size, removes page margins, fills the screen, and gives a fixed gradient background with dark text. */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:linear-gradient(#b09d7f,#d6c7a6) fixed;
+  color:var(--ink);
+}
+
+/* Chinese ancient scroll container */
+.scroll{
+  position:relative; /* position: absolute; will use it as a reference.*/
+  margin:2rem auto;  /* Center the box horizontally on the page. */
+  width:min(1000px,95vw); /* Taking into account both large and small screens. */
+  min-height:80vh;
+  padding:3.5rem 1.25rem 2.75rem;
+  background: /* A repeating linear gradient, vertical (0 degrees), looping every 4px */
+    repeating-linear-gradient(0deg,#0001 0 2px,transparent 2px 4px),
+    var(--paper); /* Effect: Simulates subtle fibers/texture on paper. */
+  border-left:18px solid var(--edge);
+  border-right:18px solid var(--edge);
+  box-shadow:0 24px 28px var(--shadow); /* https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow */
+  border-radius:10px;
+  overflow:hidden;
+}
+
+/* https://css-tricks.com/css-content/ */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/::before */
+.scroll::before,.scroll::after{
+  content:"";position:absolute;left:-26px;right:-26px;height:20px;
+  background:radial-gradient(circle at 10% 50%,#6b5b45,#3d3429 60%,#2b241c); /*Radial gradient simulates cylindrical highlights and shadows */
+  box-shadow:0 8px 12px var(--shadow) inset;border-radius:999px
+}
+.scroll::before{top:-12px} 
+.scroll::after{bottom:-12px}
+/* Making it look more three-dimensional. */
+
+.title-wrap{text-align:center;margin-bottom:1rem}
+.title{
+  margin:0;font-family:var(--brush-font);
+  font-size:clamp(28px,5vw,56px);text-shadow:0 2px 0 #0001
+}
+
+.title{
+  margin:0;
+  font-family: var(--latin-display); 
+  font-weight: 600; 
+  font-size: clamp(36px, 5vw, 32px); 
+  letter-spacing: .3px;               /* Slightly increase the spacing between characters in English to make it clearer */
+  line-height: 1.1;
+  text-shadow: 0 2px 0 #00000010;
+  -webkit-font-smoothing: antialiased; /* https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth */
+  text-rendering: optimizeLegibility; /* https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering */
+}
+
+.subtitle,.btn,.footer,.mean{
+  font-family:var(--mix-font);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  letter-spacing:.2px
+}
+.subtitle{margin:.25rem 0 1rem;opacity:.85}
+.btn{
+  border:none;border-radius:999px;cursor:pointer; /* A hand icon appears when hovering to indicate clickability. */
+  padding:.6rem 1rem;background:#2c2c2c;color:#fff;box-shadow:0 6px 12px var(--shadow)
+}
+.btn:active{transform:translateY(1px)} /* Simulate pressing effect */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/:active */
+
+.danmaku{
+  position:relative;height:58vh;margin:.75rem auto 1.5rem;
+  border:1px dashed #0002;border-radius:8px;overflow:hidden /* Prevent bullet comments from overflowing the boundaries */
+}
+.bullet{
+  position:absolute;right:-10vw;top:0;white-space:nowrap;
+  font-family:var(--brush-font);font-size:clamp(18px,3.6vw,38px);
+  color:var(--ink);cursor:pointer;user-select:none;
+  animation:fly linear forwards;
+  -webkit-text-stroke:.6px #0009; filter:drop-shadow(0 1px 1px #0004)
+}
+@keyframes fly{from{transform:translateX(0)}to{transform:translateX(-140vw)}} /* Move in the "negative direction" （go left） */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes */
+
+/* pop up window */
+.card{
+  position:fixed;inset:auto 0 0 0;
+  display:flex;justify-content:center;align-items:flex-end;
+  padding:0 1rem 1rem;opacity:0;pointer-events:none;transition:.25s
+}
+.card[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.card-inner{
+  width:min(780px,96vw);background:#fffffff2;border:2px solid #0002;border-radius:14px;
+  box-shadow:0 18px 40px var(--shadow);padding:1rem 1.2rem;backdrop-filter:blur(4px);
+  transform:translateY(calc(-1 * var(--card-lift)));transition:transform .25s ease
+}
+.word{font-family:var(--brush-font);font-size:clamp(26px,5vw,44px);margin-bottom:.25rem}
+.mean{font-size:clamp(14px,2.4vw,18px);line-height:1.7}
+.close{margin-top:.6rem;padding:.45rem .9rem;border:1px solid #0003;border-radius:10px;background:#fff;cursor:pointer}
+
+.footer{text-align:center;opacity:.75;font-size:.85rem}
+
+@media (max-height:640px){:root{--card-lift:8vh}} /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */

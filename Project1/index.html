@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Permeability</title>
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml" sizes="any">
+
+  <!-- Brush font； “Ma Shan Zheng” -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <!-- English fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Page main container: a canvas simulating a "Chinese ancient scroll" -->
+  <main class="scroll">
+    <header class="title-wrap">
+      <h1 class="title">The permeability of Internet language</h1>
+      <p class="subtitle">
+        Click the flying word to see English meaning.
+      </p>
+      <!-- https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-pressed -->
+      <!-- aria-pressed tells assistive tools if a button is pressed (on) or not pressed (off). -->
+      <button id="spawnBtn" class="btn" aria-pressed="false"> Start </button>
+    </header>
+
+    <!--JS will continue to add span.bullet elements here -->
+    <section id="danmaku" class="danmaku" aria-label="danmaku stream" aria-live="polite"></section>
+
+<!-- I used GPT to review the "Semantic + ARIA" part. 
+     I first considered <div class="card is-open">, but ARIA is more suitable for future accessibility and feature expansion. -->
+<!-- MDN dialog role: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role -->
+    <aside id="meaningCard" class="card" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="card-inner">
+        <div class="word" id="wordText">word</div>
+        <div class="mean" id="meanText">English meaning</div>
+        <button class="close" id="closeCard" aria-label="close">Close</button>
+      </div>
+    </aside>
+
+    <footer class="footer">
+      <small>2025 · Jaylin</small>
+    </footer>
+  </main>
+
+  <!-- fetch  -->
+  <script src="app.js"></script>
+</body>
+</html>
