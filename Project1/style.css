@@ -114,9 +114,4 @@ body{
 
 .footer{text-align:center;opacity:.75;font-size:.85rem}
 
-@media (max-width:480px){ /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
-  .title{
-    font-size: clamp(20px, 6vw, 12px);
-    line-height: 1.1;
-  } /* Adapt to mobile devices */
-}
+@media (max-height:640px){:root{--card-lift:8vh}} /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
