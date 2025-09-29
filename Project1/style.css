@@ -52,10 +52,6 @@ body{
 /* Making it look more three-dimensional. */
 
 .title-wrap{text-align:center;margin-bottom:1rem}
-.title{
-  margin:0;font-family:var(--brush-font);
-  font-size:clamp(28px,5vw,46px);text-shadow:0 2px 0 #0001
-}
 
 .title{
   margin:0;
@@ -68,6 +64,10 @@ body{
   -webkit-font-smoothing: antialiased; /* https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth */
   text-rendering: optimizeLegibility; /* https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering */
 }
+
+@media (max-width:480px), (max-height:640px) /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
+  .title{ font-size: clamp(20px,6vw,32px); } } /* Adjust for smaller mobile screens */
+  }
 
 .subtitle,.btn,.footer,.mean{
   font-family:var(--mix-font);
@@ -113,8 +113,4 @@ body{
 .close{margin-top:.6rem;padding:.45rem .9rem;border:1px solid #0003;border-radius:10px;background:#fff;cursor:pointer}
 
 .footer{text-align:center;opacity:.75;font-size:.85rem}
-
-@media (max-height:430px){ /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
-  .title{ font-size:clamp(10px,6vw,12px); line-height:1.1; } /* Adjust for smaller mobile screens */
-  }
 }
