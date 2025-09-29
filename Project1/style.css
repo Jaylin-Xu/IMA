@@ -117,7 +117,7 @@ body{
 @media (max-height:430px){ /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
   :root{ --card-lift: 8vh; }    
   .title{ /* Adjust for smaller mobile screens */
-    font-size: clamp(10px, 5vw, 16px); 
+    font-size: clamp(10px, 5vw, 8px); 
     line-height: 1.1;
   }
 }
