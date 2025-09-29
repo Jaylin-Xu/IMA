@@ -76,7 +76,8 @@ body{
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   letter-spacing:.2px
 }
-.subtitle{margin:.25rem 0 1rem;opacity:.85}
+.subtitle{margin:.25rem 0 1rem;opacity:.85
+font-size:clamp(12px, 2.5vw, 16px);}
 .btn{
   border:none;border-radius:999px;cursor:pointer; /* A hand icon appears when hovering to indicate clickability. */
   padding:.6rem 1rem;background:#2c2c2c;color:#fff;box-shadow:0 6px 12px var(--shadow)
