@@ -114,10 +114,10 @@ body{
 
 .footer{text-align:center;opacity:.75;font-size:.85rem}
 
-@media (max-width:480px){ /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
-  :root{ --card-lift: 8vh; }
-  .title{                       
-    font-size: clamp(22px, 6vw, 16px); /* Adjust for smaller mobile screens */
+@media (max-height:430px){ /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
+  :root{ --card-lift: 8vh; }    
+  .title{ /* Adjust for smaller mobile screens */
+    font-size: clamp(10px, 5vw, 16px); 
     line-height: 1.1;
   }
 }
