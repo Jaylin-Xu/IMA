@@ -67,7 +67,7 @@ body{
 
 @media (max-width:430px), (max-height:640px) /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
   .title{ 
-  font-size: clamp(20px,5vw,32px); /* Adjust for smaller mobile screens */
+  font-size: clamp(12px,5vw,8px); /* Adjust for smaller mobile screens */
     line-height: 1.1;
   }
 } 
