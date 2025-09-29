@@ -54,14 +54,14 @@ body{
 .title-wrap{text-align:center;margin-bottom:1rem}
 .title{
   margin:0;font-family:var(--brush-font);
-  font-size:clamp(28px,5vw,56px);text-shadow:0 2px 0 #0001
+  font-size:clamp(28px,5vw,46px);text-shadow:0 2px 0 #0001
 }
 
 .title{
   margin:0;
   font-family: var(--latin-display); 
   font-weight: 600; 
-  font-size: clamp(36px, 5vw, 32px); 
+  font-size: clamp(36px, 5vw, 42px); 
   letter-spacing: .3px;               /* Slightly increase the spacing between characters in English to make it clearer */
   line-height: 1.1;
   text-shadow: 0 2px 0 #00000010;
@@ -115,9 +115,6 @@ body{
 .footer{text-align:center;opacity:.75;font-size:.85rem}
 
 @media (max-height:430px){ /* https://developer.mozilla.org/en-US/docs/Web/CSS/@media */
-  :root{ --card-lift: 8vh; }    
-  .title{ /* Adjust for smaller mobile screens */
-    font-size: clamp(10px, 5vw, 8px); 
-    line-height: 1.1;
+  .title{ font-size:clamp(10px,6vw,12px); line-height:1.1; } /* Adjust for smaller mobile screens */
   }
 }
