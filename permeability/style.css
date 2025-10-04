@@ -1,0 +1,167 @@
+/* ========== 全局变量（颜色/字体/阴影/位移） ========== */
+:root{
+  --paper:#f8f3e7;     /* 卷轴纸色 */
+  --ink:#111;          /* 墨色（正文） */
+  --edge:#d9cdb5;      /* 卷轴侧边色 */
+  --shadow:rgba(0,0,0,.18);
+  --card-lift:12vh;    /* 卡片距离底部的上移高度 */
+
+  /* 字体族 */
+  --title-font:"Inter","SF Pro Text","Segoe UI","Noto Sans",Arial,sans-serif; /* 标题（高可读） */
+  --latin-font:"Source Serif 4","Noto Serif","Georgia",serif;                 /* 英文正文（易读） */
+  --brush-font:"Ma Shan Zheng","STKaiti","KaiTi","Songti SC",serif;           /* 毛笔字（弹幕/词条） */
+  --mix-font:var(--latin-font),var(--brush-font);
+}
+
+/* ========== 基础重置 ========== */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:linear-gradient(#b09d7f,#d6c7a6) fixed; /* 背景渐变，固定视差 */
+  color:var(--ink);
+}
+
+/* ========== 卷轴容器 ========== */
+.scroll{
+  position:relative;
+  margin:2rem auto;
+  width:min(1000px,95vw);
+  min-height:80vh;
+  padding:3.5rem 1.25rem 2.75rem;
+  background:
+    repeating-linear-gradient(0deg,#0001 0 2px,transparent 2px 4px), /* 细纹理 */
+    var(--paper);
+  border-left:18px solid var(--edge);
+  border-right:18px solid var(--edge);
+  box-shadow:0 24px 28px var(--shadow);
+  border-radius:10px;
+  overflow:hidden;
+}
+/* 卷轴上下圆柱效果 */
+.scroll::before,.scroll::after{
+  content:"";
+  position:absolute;left:-26px;right:-26px;height:20px;
+  background:radial-gradient(circle at 10% 50%,#6b5b45,#3d3429 60%,#2b241c);
+  box-shadow:0 8px 12px var(--shadow) inset;
+  border-radius:999px;
+}
+.scroll::before{top:-12px}
+.scroll::after{bottom:-12px}
+
+/* ========== 标题区 ========== */
+.title-wrap{position:relative;text-align:center;margin-bottom:1rem}
+.title{
+  margin:0;
+  font-family:var(--title-font);
+  font-weight:700;
+  font-size:clamp(24px,2.5vw,36px);
+  letter-spacing:.2px;
+  line-height:1.15;
+  text-shadow:0 1px 0 #00000010;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.subtitle,.btn,.footer,.mean{
+  font-family:var(--mix-font);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  letter-spacing:.2px;
+}
+.subtitle{margin:.25rem 0 1rem;opacity:.85}
+
+/* 可点击的“permeability”样式与反馈 */
+.title-word{
+  appearance:none;border:none;background:none;padding:0 .2em;
+  font:inherit;color:inherit;cursor:pointer;position:relative;
+  text-decoration:underline dotted rgba(0,0,0,.25);
+  text-underline-offset:.15em;
+}
+.title-word:hover{filter:drop-shadow(0 1px 0 rgba(0,0,0,.08))}
+.title-word.fx-armed{
+  -webkit-text-stroke:.8px rgba(0,0,0,.65);
+  text-shadow:0 0 10px rgba(0,0,0,.15);
+}
+
+/* 单按钮样式 */
+.btn{
+  border:none;border-radius:999px;cursor:pointer;
+  padding:.6rem 1rem;background:#2c2c2c;color:#fff;
+  box-shadow:0 6px 12px var(--shadow);
+}
+.btn:active{transform:translateY(1px)}
+.btn-group{display:flex;gap:.6rem;justify-content:center}
+
+/* ========== 弹幕区 ========== */
+.danmaku{
+  position:relative;
+  height:58vh;
+  margin:.75rem auto 1.5rem;
+  border:1px dashed #0002;
+  border-radius:8px;
+  overflow:hidden;
+  z-index:1; /* 保证在卡片下层 */
+}
+.bullet{
+  position:absolute;right:-10vw;top:0;white-space:nowrap;
+  font-family:var(--brush-font);
+  font-size:clamp(18px,3.6vw,38px);
+  color:var(--ink);
+  cursor:pointer;user-select:none;
+  animation:fly linear forwards;
+  -webkit-text-stroke:.6px #0009;
+  filter:drop-shadow(0 1px 1px #0004);
+  z-index:1;
+}
+@keyframes fly{
+  from{transform:translateX(0)}
+  to{transform:translateX(-140vw)}
+}
+/* 选中高光（描边+光晕） */
+.bullet.is-selected{
+  color:#000;
+  -webkit-text-stroke:1px #ffd24a;
+  filter:drop-shadow(0 0 6px #ffd24a) drop-shadow(0 0 12px #ffefb0);
+}
+
+/* ========== 词义卡片（始终最上层） ========== */
+.card{
+  position:fixed;inset:auto 0 0 0;
+  display:flex;justify-content:center;align-items:flex-end;
+  padding:0 1rem 1rem;
+  opacity:0;pointer-events:none;transition:.25s;
+  z-index:9999;
+}
+.card[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.card-inner{
+  width:min(780px,96vw);
+  background:#fffffff2;
+  border:2px solid #0002;border-radius:14px;
+  box-shadow:0 18px 40px var(--shadow);
+  padding:1rem 1.2rem;
+  backdrop-filter:blur(4px);
+  transform:translateY(calc(-1 * var(--card-lift)));
+  transition:transform .25s ease;
+}
+.word{font-family:var(--brush-font);font-size:clamp(26px,5vw,44px);margin-bottom:.25rem}
+.mean{font-size:clamp(14px,2.4vw,18px);line-height:1.7}
+.close{margin-top:.6rem;padding:.45rem .9rem;border:1px solid #0003;border-radius:10px;background:#fff;cursor:pointer}
+
+.footer{text-align:center;opacity:.75;font-size:.85rem}
+
+/* ========== 全屏特效画布（位于弹幕之上、卡片之下） ========== */
+.screen-fx{
+  position:fixed;inset:0;
+  width:100vw;height:100vh;
+  pointer-events:none;
+  z-index:5;
+}
+
+/* ========== 响应式：手机再小一些 ========== */
+@media (max-width:480px){
+  .title{font-size:clamp(14px,5vw,20px)} /* 手机上标题更小 */
+}
+
+/* 低矮屏适配（避免卡片过高） */
+@media (max-height:430px){
+  :root{--card-lift:8vh}
+}

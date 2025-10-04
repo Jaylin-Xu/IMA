@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <!-- 视口设置：移动端友好 -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Permeability</title>
+
+  <!-- 网站图标 -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" sizes="any">
+
+  <!-- 字体：标题（Inter，无衬线）、英文正文字体（Source Serif 4）、弹幕毛笔感（Ma Shan Zheng） -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+
+  <!-- 站点样式 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- 卷轴式主容器 -->
+  <main class="scroll">
+    <header class="title-wrap">
+      <!-- 标题：点击 permeability 触发全屏「smoke + ink-permeation」特效 -->
+      <h1 class="title">
+        The <button id="permeabilityWord" class="title-word" aria-label="Interactive word: permeability">permeability</button> of Internet language
+      </h1>
+
+      <!-- 副标题（英文可见文案） -->
+      <p class="subtitle">Click any flying word to see its English meaning. Click “permeability” above to trigger the permeation effect.</p>
+
+      <!-- 单按钮：开始 / 暂停（切换） -->
+      <div class="btn-group">
+        <button id="spawnBtn" class="btn" aria-pressed="false" aria-label="Start or pause the danmaku flow">Start</button>
+      </div>
+    </header>
+
+    <!-- 弹幕容器：JS 会持续插入 .bullet -->
+    <section id="danmaku" class="danmaku" aria-label="Danmaku stream area" aria-live="polite"></section>
+
+    <!-- 释义卡片（固定底部，层级最高；不会被弹幕遮挡） -->
+    <aside id="meaningCard" class="card" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Word meaning">
+      <div class="card-inner">
+        <div class="word" id="wordText">word</div>
+        <div class="mean" id="meanText">English meaning</div>
+        <button class="close" id="closeCard" aria-label="Close meaning card">Close</button>
+      </div>
+    </aside>
+
+    <!-- 页脚（可见英文） -->
+    <footer class="footer"><small>2025 · Jaylin</small></footer>
+  </main>
+
+  <!-- 全屏特效画布：pointer-events:none 不拦截点击；层级高于弹幕、低于卡片 -->
+  <canvas id="screenFX" class="screen-fx" aria-hidden="true"></canvas>
+
+  <!-- 行为脚本 -->
+  <script src="app.js"></script>
+</body>
+</html>
