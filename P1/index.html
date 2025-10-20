@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Network Language Penetration Detector</title>
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" sizes="any">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="scroll">
+    <header class="title-wrap">
+      <h1 class="title" id="mainTitle">You've entered the Cyber War!</h1>
+
+      <!-- 初始：No / Yes（同色） -->
+      <div class="choice-group" id="choiceGroup" aria-label="Choices">
+        <button id="btnNo"  class="btn" type="button" aria-label="No">Battlefield</button>
+        <button id="btnYes" class="btn" type="button" aria-label="Yes">Training Ground</button>
+      </div>
+
+      <!-- Yes 后：显示副标题；Start 按钮由 JS 动态插入到 #startMount -->
+      <p class="subtitle" id="subtitle" hidden>Click any flying word to see its English meaning.</p>
+      <div id="startMount"></div>
+    </header>
+
+    <!-- 弹幕容器（JS 注入 .bullet） -->
+    <section id="danmaku" class="danmaku" aria-label="Danmaku stream area" aria-live="polite"></section>
+
+    <!-- 释义卡片 -->
+    <aside id="meaningCard" class="card" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Word meaning">
+      <div class="card-inner">
+        <div class="word" id="wordText">word</div>
+        <div class="mean" id="meanText">English meaning</div>
+        <button class="close" id="closeCard" type="button" aria-label="Close meaning card">Close</button>
+      </div>
+    </aside>
+
+    <!-- ✅ Quiz 弹窗（只在点击左边按钮后使用） -->
+    <aside id="quiz" class="quiz" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Quiz">
+      <div class="quiz-backdrop" id="quizBackdrop"></div>
+      <div class="quiz-card" role="document">
+        <div class="quiz-title">Choose the correct meaning</div>
+        <div class="quiz-word" id="quizWord">——</div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-hint" id="quizHint" aria-live="polite"></div>
+      </div>
+    </aside>
+
+    <footer class="footer"><small>2025 · Jaylin</small></footer>
+  </main>
+
+  <!-- 全屏黑屏过渡 + 白字（No 流程用） -->
+  <div id="noOverlay" class="no-overlay" hidden></div>
+  <div id="noMessage" class="no-message" hidden>Your language system has been hacked!</div>
+
+  <!-- 行为脚本 -->
+  <script src="app.js" defer></script>
+</body>
+</html>

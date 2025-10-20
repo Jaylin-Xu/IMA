@@ -1,0 +1,320 @@
+/* ================= 主题变量 ================= */
+:root{
+  --paper:#f8f3e7;
+  --ink:#111;
+  --edge:#d9cdb5;
+  --shadow:rgba(0,0,0,.18);
+  --card-lift:12vh;
+
+  --title-font:"Inter","SF Pro Text","Segoe UI","Noto Sans",Arial,sans-serif;
+  --latin-font:"Source Serif 4","Noto Serif","Georgia",serif;
+  --brush-font:"Ma Shan Zheng","STKaiti","KaiTi","Songti SC",serif;
+  --mix-font:var(--latin-font),var(--brush-font);
+}
+
+/* ================= 基础重置 ================= */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:linear-gradient(#b09d7f,#d6c7a6) fixed;
+  color:var(--ink);
+}
+
+/* ================= 卷轴容器 ================= */
+.scroll{
+  position:relative;
+  margin:2rem auto;
+  width:min(1000px,95vw);
+  min-height:80vh;
+  padding:3.5rem 1.25rem 2.75rem;
+  background:
+    repeating-linear-gradient(0deg,#0001 0 2px,transparent 2px 4px),
+    var(--paper);
+  border-left:18px solid var(--edge);
+  border-right:18px solid var(--edge);
+  box-shadow:0 24px 28px var(--shadow);
+  border-radius:10px;
+  overflow:hidden;
+}
+.scroll::before,.scroll::after{
+  content:"";
+  position:absolute;left:-26px;right:-26px;height:20px;
+  background:radial-gradient(circle at 10% 50%,#6b5b45,#3d3429 60%,#2b241c);
+  box-shadow:0 8px 12px var(--shadow) inset;
+  border-radius:999px;
+}
+.scroll::before{top:-12px}
+.scroll::after{bottom:-12px}
+
+/* ================= 标题与按钮 ================= */
+.title-wrap{position:relative;text-align:center;margin-bottom:1rem}
+.title{
+  margin:0;
+  font-family:var(--title-font);
+  font-weight:700;
+  font-size:clamp(24px,2.8vw,40px);
+  letter-spacing:.2px;
+  line-height:1.15;
+  text-shadow:0 1px 0 #00000010;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.subtitle,.btn,.footer,.mean{
+  font-family:var(--mix-font);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  letter-spacing:.2px;
+}
+.subtitle{margin:.25rem 0 1rem;opacity:.85}
+
+.choice-group{
+  display:flex;gap:.8rem;justify-content:center;margin-top:.75rem;margin-bottom:.25rem;
+}
+
+.btn{
+  border:none;border-radius:999px;cursor:pointer;
+  padding:.6rem 1rem;background:#2c2c2c;color:#fff;
+  box-shadow:0 6px 12px var(--shadow);
+}
+.btn:active{transform:translateY(1px)}
+
+/* 动态插入的 Start 容器 */
+#startMount .btn-group{display:flex;gap:.6rem;justify-content:center}
+
+/* ================= 弹幕区 ================= */
+.danmaku{
+  position:relative;
+  height:58vh;
+  margin:.75rem auto 1.5rem;
+  border:1px dashed #0002;
+  border-radius:8px;
+  overflow:hidden;
+  z-index:1;
+}
+
+.bullet{
+  position:absolute;right:-10vw;top:0;white-space:nowrap;
+  font-family:var(--brush-font);
+  font-size:clamp(18px,3.6vw,38px);
+  color:var(--ink);
+  cursor:pointer;user-select:none;
+  animation:fly linear forwards;
+  -webkit-text-stroke:.6px #0009;
+  filter:drop-shadow(0 1px 1px #0004);
+  z-index:1;
+}
+@keyframes fly{
+  from{transform:translateX(0)}
+  to{transform:translateX(-140vw)}
+}
+
+/* YES 模式：选中高光 */
+.bullet.is-selected{
+  color:#000;
+  -webkit-text-stroke:1px #ffd24a;
+  filter:drop-shadow(0 0 6px #ffd24a) drop-shadow(0 0 12px #ffefb0);
+}
+
+/* NO 模式：更“墨感”的叠色（与 JS 的局部渗墨点配合） */
+.bullet.inky{
+  mix-blend-mode:multiply;
+  opacity:.95;
+  -webkit-text-stroke:.8px #000c;
+  filter:drop-shadow(0 0 0 #0000);
+}
+
+/* NO：左右对射动画（与 JS 搭配制造交错） */
+.from-left{
+  left:-20vw;right:auto;
+  animation:left-to-right linear forwards;
+}
+.from-right{
+  right:-20vw;left:auto;
+  animation:right-to-left linear forwards;
+}
+@keyframes left-to-right{ from{transform:translateX(0)} to{transform:translateX(150vw)} }
+@keyframes right-to-left{ from{transform:translateX(0)} to{transform:translateX(-150vw)} }
+
+/* 冻结态：相撞后停住并略带被墨染效果 */
+.bullet.frozen{
+  animation-play-state:paused !important;
+  opacity:.85;
+  text-shadow:0 0 0 transparent;
+  -webkit-text-stroke:1px #000c;
+}
+
+/* ================= 释义卡片 ================= */
+.card{
+  position:fixed;inset:auto 0 0 0;
+  display:flex;justify-content:center;align-items:flex-end;
+  padding:0 1rem 1rem;
+  opacity:0;pointer-events:none;transition:.25s;
+  z-index:9999;
+}
+.card[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.card-inner{
+  width:min(780px,96vw);
+  background:#fffffff2;
+  border:2px solid #0002;border-radius:14px;
+  box-shadow:0 18px 40px var(--shadow);
+  padding:1rem 1.2rem;
+  backdrop-filter:blur(4px);
+  transform:translateY(calc(-1 * var(--card-lift)));
+  transition:transform .25s ease;
+}
+.word{font-family:var(--brush-font);font-size:clamp(26px,5vw,44px);margin-bottom:.25rem}
+.mean{font-size:clamp(14px,2.4vw,18px);line-height:1.7}
+.close{margin-top:.6rem;padding:.45rem .9rem;border:1px solid #0003;border-radius:10px;background:#fff;cursor:pointer}
+
+/* ================= ✅ Quiz 弹窗样式 ================= */
+.quiz{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  z-index:9500;opacity:0;pointer-events:none;transition:.2s ease;
+}
+.quiz[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.quiz-backdrop{
+  position:absolute;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);
+}
+.quiz-card{
+  position:relative;z-index:1;
+  width:min(720px,92vw);
+  background:#fffffff6;border:1px solid #0002;border-radius:14px;
+  box-shadow:0 24px 44px var(--shadow);
+  padding:1.1rem 1.2rem 1.2rem;
+  transform:translateY(-6px);
+}
+.quiz-title{
+  font-family:var(--title-font);font-weight:700;letter-spacing:.2px;
+  font-size:clamp(18px,2.2vw,22px);margin-bottom:.4rem;text-align:center;
+}
+/* 题干用更易读的英文/拉丁字体 */
+.quiz-word{
+  font-family: var(--latin-font);
+  font-size: clamp(30px,5.6vw,48px);
+  text-align: center;
+  margin: .1rem 0 .6rem;
+  cursor: pointer;
+  user-select: none;
+}
+.quiz-word:active{ transform: scale(.98); }
+
+/* 题干中的中文词维持毛笔风格 */
+.quiz-word .zh{
+  font-family: var(--brush-font);
+  -webkit-text-stroke: .6px #0009;
+}
+
+/* 缩小 Quiz 题干字号（整体更易读但不压迫） */
+.quiz .quiz-word{
+  /* 若你之前已把题干改成拉丁字体，保留这一行；没有也可删除 */
+  font-family: var(--latin-font);
+  font-size: clamp(20px, 4.6vw, 34px); /* 原本更大，这里整体下调一档 */
+  line-height: 1.35;                   /* 句子更紧凑但不拥挤 */
+}
+
+/* 题干里的中文词仍用毛笔风格（保持对比） */
+.quiz .quiz-word .zh{
+  font-family: var(--brush-font);
+  -webkit-text-stroke: .6px #0009;
+}
+
+
+/* Quiz 大词可点击 + 轻微按压反馈 */
+.quiz-word{
+  cursor:pointer;
+  user-select:none;
+}
+.quiz-word:active{
+  transform:scale(.98);
+}
+
+.quiz-options{
+  display:grid;grid-template-columns:1fr;gap:.5rem;margin:.3rem 0 .4rem;
+}
+.quiz-options .quiz-btn{
+  padding:.6rem .9rem;border:1px solid #0002;border-radius:12px;background:#fff;cursor:pointer;
+  text-align:left;line-height:1.5;font-family:var(--mix-font);
+}
+.quiz-options .quiz-btn:active{transform:translateY(1px)}
+
+/* 让提示行有稳定高度，文字不会跳；并启用颜色类 */
+.quiz-hint{
+  text-align:center;font-size:clamp(14px,3.6vw,16px); /* 移动端更清晰 */
+  opacity:.95;min-height:1.4em; /* 稳定占位，防止抖动 */
+  font-family:var(--latin-font);
+  transition:color .15s ease, opacity .15s ease;
+}
+.quiz-hint.success{ color:#1a7f37; } /* 绿色：正确 */
+.quiz-hint.error{   color:#b3261e; } /* 红色：错误 */
+
+/* 移动端：选项更好点按、留白更舒适 */
+@media (max-width:480px){
+  .quiz-card{ padding:1rem 1rem 1.1rem; }
+  .quiz-options .quiz-btn{
+    padding:.9rem 1.1rem;             /* 触控更好按 */
+    font-size:16px; line-height:1.55; /* 便于阅读 */
+    border-radius:14px;
+  }
+}
+
+
+
+/* ================= 全屏黑屏过渡 + 白字 ================= */
+.no-overlay{
+  position:fixed;inset:0;background:#000;opacity:0;transition:opacity 5s linear;
+  z-index:9000;pointer-events:none;
+}
+.no-message{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-family:var(--title-font);font-weight:700;
+  font-size:clamp(20px,3.4vw,40px);
+  text-align:center;z-index:9100;opacity:0;transition:opacity .6s ease;pointer-events:none;
+}
+.no-overlay[hidden], .no-message[hidden]{ display:none !important; }
+
+.footer{text-align:center;opacity:.75;font-size:.85rem}
+
+/* ================= 响应式 ================= */
+@media (max-width:480px){
+  .title{font-size:clamp(16px,5vw,22px)}
+}
+@media (max-height:430px){
+  :root{--card-lift:8vh}
+}
+
+/* 默认（桌面到平板）：流式但有上下限，避免过大/过小 */
+.quiz .quiz-word{
+  /* 拉丁字体更易读；如果你前面已设，可删这行 */
+  font-family: var(--latin-font);
+  /* 最小 18px，随屏宽增长（3.8vw），最大不超过 32px */
+  font-size: clamp(18px, 3.8vw, 32px);
+  line-height: 1.4;
+}
+
+/* 题干里的中文词保留毛笔风格 */
+.quiz .quiz-word .zh{
+  font-family: var(--brush-font);
+  -webkit-text-stroke: .6px #0009;
+}
+
+/* 选项也跟着做流式，手机更好点按 */
+.quiz .quiz-options .quiz-btn{
+  font-size: clamp(14px, 3.6vw, 18px);
+  line-height: 1.55;
+  padding: .75rem 1rem;
+  border-radius: 12px;
+}
+
+/* 专门给小屏再“降一档”，防止手机显得大块头 */
+@media (max-width: 480px){
+  .quiz .quiz-word{
+    /* 手机把上限再压到 28px，vw 权重也稍降 */
+    font-size: clamp(16px, 4vw, 28px);
+    line-height: 1.35;
+    margin-bottom: .4rem;
+  }
+  .quiz .quiz-options .quiz-btn{
+    font-size: clamp(15px, 4vw, 17px);
+    padding: .85rem 1.05rem;
+  }
+}
