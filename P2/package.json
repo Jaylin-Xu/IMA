@@ -1,0 +1,17 @@
+{
+  "name": "project-2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Alex Zhang and Jaylin Xu",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "lowdb": "^7.0.1",
+    "socket.io": "^4.8.1"
+  }
+}

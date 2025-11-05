@@ -1,0 +1,15 @@
+{
+  "combos": [
+    {
+      "nickname": "Anonymous Chef",
+      "ingredients": [
+        "Beef",
+        "Broccoli"
+      ],
+      "dishName": "Beef with Broccoli",
+      "dishImage": "menu/Beef with Broccoli.png",
+      "calories": 226,
+      "timestamp": "2025-11-05T03:22:05.065Z"
+    }
+  ]
+}

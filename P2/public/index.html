@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calorie Cooking Lab</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="cooking.ico" type="image/x-icon">
+</head>
+<div class="portrait">
+  <img src="logo.png" alt="Logo" class="logo">
+  <h1>Calorie Cooking Lab</h1>
+</div>
+<body>
+<!-- Main container -->
+  <div class="container">
+    <!-- Enter Nickname -->
+    <div class="input-section">
+      <label>Nickname: </label>
+      <input type="text" id="nickname" placeholder="Anonymous Chef" value="Anonymous Chef">
+    </div>
+<!-- Ingredient List -->
+    <div class="ingredients-section">
+      <h2>Select Ingredients:</h2>
+      <!-- Onclick function add ingredient to current dish variable -->
+      <div>
+        <button onclick="addIngredient('Beef')">Beef</button>
+        <button onclick="addIngredient('Beef patty')">Beef patty</button>
+        <button onclick="addIngredient('Burger buns')">Burger buns</button>
+        <button onclick="addIngredient('Broccoli')">Broccoli</button>
+        <button onclick="addIngredient('Cabbage')">Cabbage</button>
+        <button onclick="addIngredient('Carrot')">Carrot</button>
+        <button onclick="addIngredient('Cheese')">Cheese</button>
+        <button onclick="addIngredient('Chicken breast')">Chicken breast</button>
+        <button onclick="addIngredient('Chicken thigh')">Chicken thigh</button>
+        <button onclick="addIngredient('Chicken wing')">Chicken wing</button>
+        <button onclick="addIngredient('Chili')">Chili</button>
+        <button onclick="addIngredient('Coke')">Coke</button>
+        <button onclick="addIngredient('Duck')">Duck</button>
+        <button onclick="addIngredient('Egg')">Egg</button>
+        <button onclick="addIngredient('Fish')">Fish</button>
+        <button onclick="addIngredient('Green pepper')">Green pepper</button>
+        <button onclick="addIngredient('Lemon')">Lemon</button>
+        <button onclick="addIngredient('Lettuce')">Lettuce</button>
+        <button onclick="addIngredient('Mushroom')">Mushroom</button>
+        <button onclick="addIngredient('Onion')">Onion</button>
+        <button onclick="addIngredient('Orange')">Orange</button>
+        <button onclick="addIngredient('Peanut')">Peanut</button>
+        <button onclick="addIngredient('Pepper')">Pepper</button>
+        <button onclick="addIngredient('Pineapple')">Pineapple</button>
+        <button onclick="addIngredient('Pork')">Pork</button>
+        <button onclick="addIngredient('Pork belly')">Pork belly</button>
+        <button onclick="addIngredient('Pork Knuckle')">Pork Knuckle</button>
+        <button onclick="addIngredient('Shrimp')">Shrimp</button>
+        <button onclick="addIngredient('Tomato')">Tomato</button>
+        <button onclick="addIngredient('Woodear')">Woodear</button>
+      </div>
+    </div>
+<!-- Show current dish status -->
+    <div class="current-dish">
+      <h2>Current Dish:</h2>
+      <div id="dish-preview"></div>
+      <div id="dish-image"></div>
+      <p class="dish-info">Dish: <span id="dish-name">???</span></p>
+      <p class="dish-info">Total Calories: <span id="total-calories">0</span></p>
+    </div>
+<!-- Clear current dish -->
+    <div class="action-buttons">
+      <button onclick="clearDish()">Clear</button>
+      <button onclick="saveDish()">Save Dish</button>
+    </div>
+<!-- Show history dish -->
+    <div class="gallery-section">
+      <div class="gallery-header">
+        <h2>Dish Gallery (Recent 50):</h2>
+        <button onclick="clearHistory()">Clear History</button>
+      </div>
+      <div id="gallery"></div>
+    </div>
+  </div>
+<!-- Link  sock.io js and app.js -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
