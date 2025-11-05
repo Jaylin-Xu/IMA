@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo{ /* The image above the title */
+  width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+body { /* Background */
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffcc4d 0%, #f5eeca 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+h1 { /* Title */
+    text-align: center;
+    color: black;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+h2 { /* Section title */
+    color: black;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.input-section {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input {
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.ingredients-section {
+    margin-bottom: 30px;
+}
+
+button {  /* Choosing bright colors for buttons is to entice users to click on them. */
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:hover { /* There is a noticeable visual change when selected. */
+    background: #ff5252;
+}
+
+.current-dish {
+    background: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#dish-preview {
+    margin-bottom: 10px;
+}
+
+#dish-preview div {
+    background: white;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#dish-image {
+    margin: 15px 0;
+    text-align: center;
+}
+
+#dish-image img {
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dish-info {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+.dish-info span {
+    font-weight: bold;
+    color: #ff6b6b;
+}
+
+.action-buttons {
+    margin: 20px 0;
+}
+
+.gallery-section {
+    margin-top: 30px;
+}
+
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#gallery {
+    margin-top: 20px;
+}
+
+.gallery-item {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+    border-radius: 10px;
+    margin-top: 10px;
+}
